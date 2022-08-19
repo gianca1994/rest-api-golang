@@ -2,18 +2,22 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 type PostgresClient struct {
-
+	*sql.DB
 }
 
-func NewSqlClient(source string) *sql.DB {
-	db, err := sql.Open("postgres", source)
+func NewSqlClient(source string) *PostgresClient {
+	db, err := sql.Open("pgx", source)
 	if err != nil {
-		_ = fmt.Errorf("error opening database: %s", err.Error())
-		panic("..")
+		panic(err)
 	}
-	return db
+
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	return &PostgresClient{db}
 }

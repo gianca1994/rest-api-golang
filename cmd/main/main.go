@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"rest-api-golang/internal/database"
+	"rest-api-golang/internal/logs"
+	"github.com/golang-migrate/migrate/v4"
+)
 
-func main()  {
-	fmt.Println("Hello, world!")
+func main() {
+	_ = logs.InitLogger()
+	client := database.NewSqlClient("postgres://postgres:root@localhost:5432/rest-api-golang")
 }
