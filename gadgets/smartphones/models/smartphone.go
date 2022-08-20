@@ -1,6 +1,6 @@
 package models
 
-// Smartphone models a smartphones
+// Smartphone model structure for smartphone
 type Smartphone struct {
 	Id            int64
 	Name          string
@@ -9,7 +9,7 @@ type Smartphone struct {
 	OS            string
 }
 
-// CreateSmartphoneCMD create a new smartphone from CMD
+// CreateSmartphoneCMD
 type CreateSmartphoneCMD struct {
 	Name          string `json:"name"`
 	Price         int    `json:"price"`

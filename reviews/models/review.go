@@ -5,31 +5,31 @@ import (
 	"time"
 )
 
-const maxLenComment = 400
+const maxLengthInComments = 400
 
-// Review models a review
+// Review represent an anon review from some website
 type Review struct {
-	Id      int64
-	Stars   int
-	Comment string
-	Date    time.Time
+	Id       int64
+	Stars    int       // 1 - 5
+	Comment  string    // max 400 chars
+	Date     time.Time // created at
+	GadgetId int64
 }
 
-// CreateReviewCMD create a new review from CMD
+// CreateReviewCMD command to create a new review
 type CreateReviewCMD struct {
 	Stars   int    `json:"stars"`
 	Comment string `json:"comment"`
+	GadgetId int64 `json:"gadget_id"`
 }
 
-// Validate validates the review
 func (cmd *CreateReviewCMD) validate() error {
 	if cmd.Stars < 1 || cmd.Stars > 5 {
-		return errors.New("invalid stars")
+		return errors.New("stars must be between 1 - 5")
 	}
 
-	if len(cmd.Comment) > maxLenComment || len(cmd.Comment) < 1 {
-		return errors.New("comment must be between 1 and 400 characters")
+	if len(cmd.Comment) > maxLengthInComments {
+		return errors.New("comment must be less than 400 chars")
 	}
-
 	return nil
 }
