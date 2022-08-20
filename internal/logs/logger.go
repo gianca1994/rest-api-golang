@@ -11,10 +11,12 @@ func InitLogger() error {
 	l, err := zap.NewDevelopment()
 
 	if err != nil {
-		_ = fmt.Errorf("failed to initialize logger: %s", err.Error())
+		_ = fmt.Errorf("cannot create zap logger %s", err.Error())
 		return err
 	}
+
 	sugar = l.Sugar()
+
 	return nil
 }
 
